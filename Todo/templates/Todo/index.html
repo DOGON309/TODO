@@ -10,24 +10,29 @@
 {% endblock head %}
 {% block content %}
 <nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand">TODO</a>
-      <a href="{% url 'logout' %}" class="btn btn-outline-success" type="submit">LOGOUT</a>
-  </div>
+	<div class="container-fluid">
+		<a class="navbar-brand">TODO</a>
+		<a href="{% url 'logout' %}" class="btn btn-outline-success" type="submit">LOGOUT</a>
+	</div>
 </nav>
 <div class="container mt-5">
-	<form action="{% url 'index' %}" method="post">{% csrf_token %}
-		{{ form }}
-		<button class="btn btn-primary mt-3">登録</button>
-	</form>
-	{% for content in contents %}
-	<div class="card mt-3">
-		<div class="card-body">
-			<p class="card-text">{{ content.content }}</p>
-			<p class="card-text">重要度: {{ content.select }}</p>
-			<a href="{% url 'delete' content.pk %}" class="btn btn-primary">削除</a>
+	<div class="row">
+		<form action="{% url 'index' %}" method="post">{% csrf_token %}
+			{{ form }}
+			<button class="btn btn-primary mt-3">登録</button>
+		</form>
+		<div class="col-8">
+		{% for content in contents %}
+		<div class="card mt-3">
+			<div class="card-body">
+				<h5 class="card-title">{{ content.content }}</h5>
+				<p class="card-text">投稿者: {{ content.owner }}</p>
+				<p class="card-text">重要度: {{ content.select }}</p>
+				<a href="{% url 'delete' content.pk %}" class="btn btn-primary">削除</a>
+			</div>
+		</div>
+		{% endfor %}
 		</div>
 	</div>
-	{% endfor %}
 </div>
 {% endblock content %}

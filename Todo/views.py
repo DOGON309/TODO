@@ -33,11 +33,13 @@ def indexview(request):
 		'title': 'APP',
 		'form': Indexform,
 		'contents': '',
+		'user_data': request.user,
 	}
 	if request.method == 'POST':
 		todo = request.POST['todo']
 		select = request.POST['choice']
 		todomodel = TodoModel()
+		todomodel.owner = request.user
 		todomodel.content = todo
 		todomodel.select = select
 		todomodel.save()
